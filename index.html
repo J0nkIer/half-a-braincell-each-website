@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Half A Braincell Each</title>
 
+    <link rel="icon" type="image/png" href="assets/images/favicon.jpg">
+
 <style>
     :root {
         --orange-dark: #ff8d1b;
@@ -741,20 +743,6 @@
         pointer-events: none;
     }
 
-    .about-preview.expanded {
-        max-height: none;
-    }
-
-    .about-preview.expanded::after {
-        display: none;
-    }
-
-    .about-more-container {
-        display: flex;
-        justify-content: flex-start;
-        margin-top: 20px;
-    }
-
     .fanart-section .content-section {
         position: relative;
     }
@@ -1305,22 +1293,19 @@
                 class="about-preview"
             >
                 <p id="about-description"></p>
-                <p id="about-description-2"></p>
             </div>
 
             <div class="about-more-container">
-                <button
-                    type="button"
+                <a
+                    href="about.html"
                     class="see-more-button"
                     id="about-more-button"
-                    aria-expanded="false"
-                    aria-controls="about-content"
                 >
                     <span class="button-text">
                         See More
                     </span>
                     <span class="button-arrow">▼</span>
-                </button>
+                </a>
             </div>
         </div>
     </section>
@@ -1459,7 +1444,7 @@
         </div>
 
         <p>
-            Thank you for being apart of the community ♥
+            Thank you for being a part of the community ♥
         </p>
 
         <p>
@@ -1484,7 +1469,7 @@
 
         tagline:
             "Welcome to the official Half A Braincell Each Website! " +
-            "Videos, announcments, fanart and (hopefully) more!",
+            "Videos, announcements, fanart and (hopefully) more!",
 
         youtube:
             "https://www.youtube.com/channel/UC45YiM8Mh0IgWJgUPh4B9gw",
@@ -1494,15 +1479,7 @@
             "friends who have a passion for playing games, creating " +
             "art, and stories. We all wanna bring you the best videos " +
             "we can while still being funny, creative and enjoyable " +
-            "to watch!",
-
-        description2:
-            "The person writng this description and who made this site is Jake, or J, Yake ect I don't really mind. " +
-            "My main goal is that I want to make my own game one day and would love to relase it here, or on the channel, along with that I have always wanted to do a youtube channel since I was young. " +
-            "The two other hosts on the channel are Sketchy, and Remino! " +
-            "Sketchy is our thumbnail artist who joined later into the channel (the like second video) and he often brightens up the videos and makes it much easier to listen to between me and Remino as he is much calmer, he also runs his own series on the channel called 'Idiot Animations' where he animates clips from the videos in goofy styles, he also is making his own books that he'll probably announce on here or the channel! " +
-            "Next is Remino, he doesn't really doesn't much for the channel behind the scenes wise but he is the source of some of the funnier moments from the channel, and the channel wouldn't be here if it wasn't for him cause he agreed to doing the channel with me! " +
-            "Seriously thank you for reading this and I hope you stick around to see where the channel will go! "
+            "to watch!"
     };
 
     const VIDEOS = [
@@ -1557,7 +1534,7 @@
         {
             title: "WE'RE SO BACK!! | Blocktales Ep: 2!!",
             date: "April 19, 2026",
-            description: "yo this seriese ain't dead :D",
+            description: "yo this series ain't dead :D",
             thumbnail: "assets/images/video13.png",
             url: "https://www.youtube.com/watch?v=7BXEgKTtg_A"
         },
@@ -1653,7 +1630,7 @@
         {
             title: "ITS BLOCKTALES TIME! Ep: 1!!",
             date: "August 18, 2025",
-            description: "The begining (i prolly spelt thatw wrong)",
+            description: "The beginning",
             thumbnail: "assets/images/video1.png",
             url: "https://www.youtube.com/watch?v=4aulkkYrLsw"
         },
@@ -1661,7 +1638,7 @@
         {
             title: "Welcome to Half a Braincell Each! (2025)",
             date: "August 11, 2025",
-            description: "fake begeinging (thats spelt so wrong ;o;)",
+            description: "fake beginning",
             thumbnail: "assets/images/video0.png",
             url: "https://www.youtube.com/watch?v=v1L754DPmCk&"
         },
@@ -1728,10 +1705,6 @@
     document.getElementById(
         "about-description"
     ).textContent = CHANNEL.description;
-
-    document.getElementById(
-        "about-description-2"
-    ).textContent = CHANNEL.description2;
 
     const videoGrid =
         document.getElementById("video-grid");
@@ -1933,43 +1906,6 @@
                 announcementsExpanded
                     ? "Show Fewer Announcements"
                     : "See More Announcements";
-        }
-    );
-
-    const aboutContent =
-        document.getElementById(
-            "about-content"
-        );
-
-    const aboutMoreButton =
-        document.getElementById(
-            "about-more-button"
-        );
-
-    aboutMoreButton.addEventListener(
-        "click",
-        () => {
-            const expanded =
-                aboutContent.classList.toggle(
-                    "expanded"
-                );
-
-            aboutMoreButton.classList.toggle(
-                "expanded",
-                expanded
-            );
-
-            aboutMoreButton.setAttribute(
-                "aria-expanded",
-                String(expanded)
-            );
-
-            aboutMoreButton.querySelector(
-                ".button-text"
-            ).textContent =
-                expanded
-                    ? "Show Less"
-                    : "See More";
         }
     );
 
