@@ -1,0 +1,2133 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Half A Braincell Each</title>
+
+    <link rel="icon" type="image/png" href="assets/images/favicon.jpg">
+
+<style>
+    :root {
+        --orange-dark: #ff8d1b;
+        --orange: #fe9b35;
+        --orange-light: #ffa245;
+        --orange-pale: #ffba75;
+        --cream: #fff4df;
+        --paper: #fffaf0;
+        --white: #ffffff;
+        --ink: #35180d;
+        --ink-light: #66301a;
+        --max-width: 1120px;
+        --outline: 4px solid var(--ink);
+        --shadow: 6px 7px 0 var(--ink);
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        min-height: 100vh;
+        overflow-x: hidden;
+        color: var(--ink);
+        font-family:
+            "Trebuchet MS",
+            "Arial Rounded MT Bold",
+            Arial,
+            sans-serif;
+        background: var(--orange);
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -5;
+        pointer-events: none;
+        background:
+            radial-gradient(
+                ellipse 35% 20% at 10% 15%,
+                var(--orange-pale) 0%,
+                transparent 70%
+            ),
+            radial-gradient(
+                ellipse 40% 25% at 90% 20%,
+                var(--orange-light) 0%,
+                transparent 70%
+            ),
+            radial-gradient(
+                ellipse 35% 25% at 40% 80%,
+                var(--orange-pale) 0%,
+                transparent 70%
+            ),
+            radial-gradient(
+                ellipse 40% 25% at 80% 75%,
+                var(--orange-dark) 0%,
+                transparent 70%
+            ),
+            linear-gradient(
+                135deg,
+                var(--orange-dark),
+                var(--orange) 42%,
+                var(--orange-light) 70%,
+                var(--orange-pale)
+            );
+    }
+
+    body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -4;
+        pointer-events: none;
+        opacity: 0.95;
+        background-image:
+            radial-gradient(
+                ellipse 80px 42px at 8% 12%,
+                var(--white) 0%,
+                var(--white) 85%,
+                transparent 87%
+            ),
+            radial-gradient(
+                ellipse 100px 55px at 91% 38%,
+                var(--white) 0%,
+                var(--white) 85%,
+                transparent 87%
+            ),
+            radial-gradient(
+                ellipse 70px 38px at 12% 74%,
+                var(--white) 0%,
+                var(--white) 84%,
+                transparent 86%
+            ),
+            radial-gradient(
+                ellipse 120px 55px at 82% 82%,
+                var(--white) 0%,
+                var(--white) 84%,
+                transparent 87%
+            );
+    }
+
+    .blob {
+        position: fixed;
+        z-index: -3;
+        pointer-events: none;
+        background: var(--white);
+        border-radius:
+            55% 45% 60% 40% /
+            50% 60% 40% 50%;
+        opacity: 0.9;
+    }
+
+    .blob-one {
+        width: 32px;
+        height: 32px;
+        top: 20%;
+        left: 22%;
+    }
+
+    .blob-two {
+        width: 50px;
+        height: 32px;
+        top: 55%;
+        right: 16%;
+        transform: rotate(15deg);
+    }
+
+    .blob-three {
+        width: 22px;
+        height: 22px;
+        top: 70%;
+        right: 7%;
+    }
+
+    .blob-four {
+        width: 45px;
+        height: 26px;
+        top: 90%;
+        left: 30%;
+        transform: rotate(-15deg);
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    button {
+        font: inherit;
+    }
+
+    .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--cream);
+        border-bottom: var(--outline);
+        box-shadow: 0 5px 0 rgba(53, 24, 13, 0.3);
+    }
+
+    .navbar {
+        max-width: var(--max-width);
+        min-height: 72px;
+        margin: auto;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 900;
+        font-size: 1.15rem;
+    }
+
+    .logo-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: var(--orange);
+    border: 3px solid var(--ink);
+    border-radius: 45% 55% 50% 50%;
+    transform: rotate(-5deg);
+    box-shadow: 3px 4px 0 var(--ink);
+}
+
+.logo-icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        list-style: none;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 9px 13px;
+        border-radius: 10px;
+        font-weight: 900;
+        transition:
+            transform 0.15s ease,
+            background 0.15s ease;
+    }
+
+    .nav-links a:hover {
+        color: var(--white);
+        background: var(--orange);
+        transform: rotate(-2deg) translateY(-2px);
+    }
+
+    .menu-button {
+        display: none;
+        padding: 6px 11px;
+        color: var(--white);
+        background: var(--orange);
+        border: 3px solid var(--ink);
+        border-radius: 10px;
+        box-shadow: 3px 3px 0 var(--ink);
+        cursor: pointer;
+    }
+
+    .channel-banner {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        background: var(--orange);
+        border-bottom: var(--outline);
+    }
+
+    .channel-banner img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 360px;
+        object-fit: cover;
+    }
+
+    .character-circle {
+    width: 240px;
+    height: 240px;
+    overflow: hidden;
+    margin: auto;
+    background: var(--white);
+    border: 7px solid var(--ink);
+    border-radius: 48% 52% 45% 55% / 52% 45% 55% 48%;
+    box-shadow: 10px 11px 0 var(--ink);
+    transform: rotate(4deg);
+}
+
+.character-circle img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+    .hero {
+        position: relative;
+        overflow: hidden;
+        color: var(--ink);
+        background:
+            linear-gradient(
+                140deg,
+                var(--orange-dark) 0%,
+                var(--orange) 38%,
+                var(--orange-light) 72%,
+                var(--orange-pale) 100%
+            );
+        border-bottom: var(--outline);
+    }
+
+    .hero-background-shape {
+        position: absolute;
+        width: 650px;
+        height: 450px;
+        right: -180px;
+        top: -180px;
+        background: rgba(255, 244, 223, 0.35);
+        border-radius:
+            42% 58% 65% 35% /
+            45% 35% 65% 55%;
+        transform: rotate(15deg);
+    }
+
+    .hero-inner {
+        position: relative;
+        z-index: 2;
+        max-width: var(--max-width);
+        min-height: 430px;
+        margin: auto;
+        padding: 75px 20px;
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 50px;
+        align-items: center;
+    }
+
+    .hero-copy {
+        max-width: 700px;
+    }
+
+    .sticker {
+        display: inline-block;
+        padding: 7px 13px;
+        margin-bottom: 20px;
+        color: var(--ink);
+        background: var(--white);
+        border: 3px solid var(--ink);
+        border-radius: 45% 55% 48% 52%;
+        font-size: 0.78rem;
+        font-weight: 900;
+        transform: rotate(-3deg);
+        box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    .hero h1 {
+        margin-bottom: 18px;
+        color: var(--white);
+        font-size: clamp(3rem, 8vw, 6rem);
+        line-height: 0.9;
+        letter-spacing: -3px;
+        text-shadow: 5px 5px 0 var(--ink);
+    }
+
+    .hero p {
+        max-width: 650px;
+        margin-bottom: 28px;
+        color: var(--ink);
+        font-size: 1.15rem;
+        font-weight: 700;
+    }
+
+    .youtube-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 13px 20px;
+        color: var(--ink);
+        background: var(--white);
+        border: 4px solid var(--ink);
+        border-radius: 12px 17px 13px 16px;
+        font-weight: 900;
+        box-shadow: 6px 6px 0 var(--ink);
+        transition:
+            transform 0.15s ease,
+            box-shadow 0.15s ease;
+    }
+
+    .youtube-button:hover {
+        transform: translate(3px, 3px) rotate(-1deg);
+        box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    .hero-character {
+        position: relative;
+        width: 270px;
+        height: 270px;
+        margin: auto;
+    }
+
+    .character-circle {
+        width: 240px;
+        height: 240px;
+        display: grid;
+        place-items: center;
+        margin: auto;
+        background:
+            radial-gradient(
+                circle at 35% 25%,
+                var(--white),
+                var(--cream) 65%,
+                var(--orange-pale)
+            );
+        border: 7px solid var(--ink);
+        border-radius:
+            48% 52% 45% 55% /
+            52% 45% 55% 48%;
+        box-shadow: 10px 11px 0 var(--ink);
+        transform: rotate(4deg);
+        color: var(--orange-dark);
+        font-size: 4.5rem;
+        font-weight: 900;
+    }
+
+    .character-sparkle {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        color: var(--white);
+        font-size: 4rem;
+        text-shadow: 3px 3px 0 var(--ink);
+        transform: rotate(15deg);
+    }
+
+    .wave-bottom {
+        position: absolute;
+        left: -5%;
+        bottom: -50px;
+        width: 110%;
+        height: 100px;
+        background: var(--cream);
+        border-radius: 50% 50% 0 0 / 70% 70% 0 0;
+    }
+
+    .content-section {
+        position: relative;
+        z-index: 2;
+        max-width: var(--max-width);
+        margin: auto;
+        padding: 80px 20px;
+    }
+
+    .section-heading {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 35px;
+    }
+
+    .section-heading h2 {
+        font-size: clamp(2rem, 5vw, 3rem);
+        line-height: 1;
+    }
+
+    .section-heading p {
+        margin-top: 7px;
+        color: var(--ink-light);
+        font-weight: 700;
+    }
+
+    .section-icon {
+        width: 60px;
+        height: 60px;
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        color: var(--white);
+        background: var(--orange);
+        border: 4px solid var(--ink);
+        border-radius: 47% 53% 55% 45%;
+        box-shadow: 4px 5px 0 var(--ink);
+        font-size: 1.5rem;
+        font-weight: 900;
+        transform: rotate(-4deg);
+    }
+
+    .white-icon {
+        color: var(--orange-dark);
+        background: var(--white);
+    }
+
+    .video-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+
+    .video-card {
+        overflow: hidden;
+        background: var(--white);
+        border: var(--outline);
+        border-radius: 17px 14px 20px 15px;
+        box-shadow: var(--shadow);
+        transition:
+            transform 0.18s ease,
+            box-shadow 0.18s ease;
+    }
+
+    .video-card:nth-child(2) {
+        transform: rotate(1deg);
+    }
+
+    .video-card:nth-child(3) {
+        transform: rotate(-1deg);
+    }
+
+    .video-card:hover {
+        transform: translate(-3px, -5px) rotate(0);
+        box-shadow: 10px 12px 0 var(--ink);
+    }
+
+    .thumbnail {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--orange);
+    border-bottom: 4px solid var(--ink);
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.25s ease;
+}
+
+.video-card:hover .thumbnail img {
+    transform: scale(1.05);
+}
+
+.thumbnail::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 141, 27, 0.15),
+        rgba(53, 24, 13, 0.2)
+    );
+    pointer-events: none;
+}
+
+.thumbnail-play {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 50%;
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    padding-left: 3px;
+    color: var(--orange-dark);
+    background: var(--white);
+    border: 4px solid var(--ink);
+    border-radius: 50%;
+    box-shadow: 4px 4px 0 var(--ink);
+    font-size: 1.2rem;
+    transform: translate(-50%, -50%);
+}
+
+    .video-info {
+        padding: 18px;
+    }
+
+    .video-info h3 {
+        margin-bottom: 6px;
+        font-size: 1.15rem;
+    }
+
+    .video-date {
+        color: var(--orange-dark);
+        font-size: 0.82rem;
+        font-weight: 900;
+    }
+
+    .video-description {
+        margin-top: 6px;
+        color: var(--ink-light);
+        font-size: 0.9rem;
+    }
+
+    .see-more-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 35px;
+    }
+
+    .see-more-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        padding: 13px 22px;
+        color: var(--white);
+        background: var(--orange-dark);
+        border: 4px solid var(--ink);
+        border-radius: 13px 17px 12px 15px;
+        box-shadow: 5px 6px 0 var(--ink);
+        font-weight: 900;
+        cursor: pointer;
+        transition:
+            transform 0.15s ease,
+            box-shadow 0.15s ease;
+    }
+
+    .see-more-button:hover {
+        transform: translate(3px, 3px) rotate(-1deg);
+        box-shadow: 2px 3px 0 var(--ink);
+    }
+
+    .see-more-button:focus-visible {
+        outline: 4px dashed var(--ink);
+        outline-offset: 4px;
+    }
+
+    .see-more-button .button-arrow {
+        transition: transform 0.2s ease;
+    }
+
+    .see-more-button.expanded .button-arrow {
+        transform: rotate(180deg);
+    }
+
+    .orange-section {
+        position: relative;
+        overflow: hidden;
+        color: var(--white);
+        background:
+            linear-gradient(
+                125deg,
+                var(--orange-dark),
+                var(--orange) 42%,
+                var(--orange-light) 75%,
+                var(--orange-pale)
+            );
+        border-top: var(--outline);
+        border-bottom: var(--outline);
+    }
+
+    .orange-section::before {
+        content: "";
+        position: absolute;
+        width: 400px;
+        height: 250px;
+        right: -100px;
+        top: -80px;
+        background: rgba(255, 244, 223, 0.3);
+        border-radius: 60% 40% 50% 50%;
+        transform: rotate(20deg);
+    }
+
+    .announcement-list {
+        display: grid;
+        gap: 18px;
+    }
+
+    .announcement {
+        position: relative;
+        padding: 23px 25px;
+        color: var(--ink);
+        background: var(--white);
+        border: var(--outline);
+        border-radius: 15px 19px 14px 20px;
+        box-shadow: 6px 7px 0 var(--ink);
+    }
+
+    .announcement:nth-child(odd) {
+        transform: rotate(-0.8deg);
+    }
+
+    .announcement:nth-child(even) {
+        transform: rotate(0.8deg);
+    }
+
+    .announcement-date {
+        display: inline-block;
+        padding: 4px 9px;
+        margin-bottom: 7px;
+        color: var(--white);
+        background: var(--orange);
+        border-radius: 8px;
+        font-size: 0.78rem;
+        font-weight: 900;
+    }
+
+    .announcement h3 {
+        margin-bottom: 5px;
+        font-size: 1.25rem;
+    }
+
+    .announcement p {
+        color: var(--ink-light);
+    }
+
+    .paper-card {
+        position: relative;
+        padding: 35px;
+        background: var(--paper);
+        border: var(--outline);
+        border-radius: 18px 13px 21px 15px;
+        box-shadow: 8px 9px 0 var(--ink);
+    }
+
+    .paper-card p {
+        max-width: 850px;
+        margin-bottom: 15px;
+        color: var(--ink-light);
+        font-size: 1.05rem;
+    }
+
+    .paper-card p:last-child {
+        margin-bottom: 0;
+    }
+
+    .paper-corner {
+        position: absolute;
+        top: 10px;
+        right: 22px;
+        color: var(--orange-light);
+        font-size: 3.5rem;
+        transform: rotate(15deg);
+    }
+
+    .about-preview {
+        max-height: 115px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .about-preview::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 55px;
+        background: linear-gradient(
+            to bottom,
+            rgba(255, 250, 240, 0),
+            var(--paper)
+        );
+        pointer-events: none;
+    }
+
+    .fanart-section .content-section {
+        position: relative;
+    }
+
+    .fanart-card {
+        display: grid;
+        grid-template-columns: 0.75fr 1.25fr;
+        gap: 45px;
+        padding: 35px;
+        color: var(--ink);
+        background: var(--white);
+        border: var(--outline);
+        border-radius: 20px 15px 18px 23px;
+        box-shadow: 8px 9px 0 var(--ink);
+    }
+
+    .fanart-copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .art-star {
+        color: var(--orange);
+        font-size: 5rem;
+        line-height: 1;
+        text-shadow: 3px 3px 0 var(--ink);
+        transform: rotate(-8deg);
+    }
+
+    .fanart-copy h3 {
+        margin: 15px 0 8px;
+        font-size: 1.9rem;
+    }
+
+    .fanart-copy p {
+        color: var(--ink-light);
+    }
+
+    .mini-doodles {
+        margin-top: 20px;
+        color: var(--orange-light);
+        font-size: 1.5rem;
+        font-weight: 900;
+    }
+
+    #fanart-form {
+        display: grid;
+        gap: 8px;
+    }
+
+    #fanart-form label {
+        font-weight: 900;
+    }
+
+    #fanart-form input,
+    #fanart-form textarea {
+        width: 100%;
+        padding: 12px 14px;
+        margin-bottom: 7px;
+        color: var(--ink);
+        background: var(--cream);
+        border: 3px solid var(--orange-pale);
+        border-radius: 10px 8px 11px 9px;
+        outline: none;
+    }
+
+    #fanart-form input:focus,
+    #fanart-form textarea:focus {
+        border-color: var(--orange);
+        box-shadow: 3px 3px 0 var(--orange-light);
+    }
+
+    #fanart-form textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .submit-button {
+        width: fit-content;
+        padding: 12px 20px;
+        margin-top: 5px;
+        color: var(--white);
+        background: var(--orange-dark);
+        border: 4px solid var(--ink);
+        border-radius: 12px 15px 11px 14px;
+        box-shadow: 5px 5px 0 var(--ink);
+        font-weight: 900;
+        cursor: pointer;
+        transition:
+            transform 0.15s ease,
+            box-shadow 0.15s ease;
+    }
+
+    .submit-button:hover {
+        transform: translate(3px, 3px) rotate(-1deg);
+        box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    .form-message {
+        display: none;
+        padding: 12px;
+        color: var(--ink);
+        background: var(--orange-pale);
+        border: 3px solid var(--orange-dark);
+        border-radius: 10px;
+        font-weight: 800;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    .merch-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+    }
+
+    .merch-card {
+        overflow: hidden;
+        background: var(--white);
+        border: var(--outline);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        transition: transform 0.2s ease;
+    }
+
+    .merch-card:hover {
+        transform: translateY(-5px) rotate(1deg);
+    }
+
+    .merch-image {
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--orange);
+    border-bottom: var(--outline);
+}
+
+.merch-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.25s ease;
+}
+
+.merch-card:hover .merch-image img {
+    transform: scale(1.05);
+}
+
+    .merch-info {
+        padding: 18px;
+    }
+
+    .merch-info h3 {
+        margin-bottom: 6px;
+    }
+
+    .merch-info p {
+        margin-bottom: 10px;
+        color: var(--ink-light);
+    }
+
+    .merch-link {
+        color: var(--orange-dark);
+        font-weight: 900;
+    }
+
+    footer {
+        color: var(--white);
+        background: var(--ink);
+        border-top: 5px solid var(--ink-light);
+    }
+
+    .footer-inner {
+        max-width: var(--max-width);
+        margin: auto;
+        padding: 30px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 900;
+    }
+
+    .footer-play {
+        color: var(--orange-light);
+    }
+
+    @media (max-width: 800px) {
+        .menu-button {
+            display: block;
+        }
+
+        .nav-links {
+            position: absolute;
+            top: 77px;
+            left: 15px;
+            right: 15px;
+            display: none;
+            flex-direction: column;
+            padding: 12px;
+            background: var(--cream);
+            border: var(--outline);
+            border-radius: 15px;
+            box-shadow: 5px 6px 0 var(--ink);
+        }
+
+        .nav-links.open {
+            display: flex;
+        }
+
+        .nav-links a {
+            text-align: center;
+        }
+
+        .channel-banner img {
+            min-height: 120px;
+            object-fit: cover;
+        }
+
+        .hero-inner {
+            grid-template-columns: 1fr;
+            text-align: center;
+            padding: 65px 20px 100px;
+        }
+
+        .hero p {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-character {
+            order: -1;
+        }
+
+        .video-grid,
+        .merch-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .fanart-card {
+            grid-template-columns: 1fr;
+        }
+
+        .fanart-copy {
+            text-align: center;
+        }
+
+        .art-star {
+            font-size: 4rem;
+        }
+
+        .footer-inner {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .navbar {
+            padding: 8px 14px;
+        }
+
+        .logo {
+            font-size: 0.95rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+        }
+
+        .channel-banner img {
+            min-height: 100px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+        }
+
+        .hero-character {
+            width: 220px;
+            height: 220px;
+        }
+
+        .character-circle {
+            width: 190px;
+            height: 190px;
+            font-size: 3.5rem;
+        }
+
+        .content-section {
+            padding: 60px 16px;
+        }
+
+        .section-heading {
+            align-items: flex-start;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 1.2rem;
+        }
+
+        .paper-card,
+        .fanart-card {
+            padding: 22px;
+        }
+
+        .see-more-button {
+            width: 100%;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+            transition: none !important;
+            animation: none !important;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="blob blob-one"></div>
+<div class="blob blob-two"></div>
+<div class="blob blob-three"></div>
+<div class="blob blob-four"></div>
+
+<header class="site-header">
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <span class="logo-icon">
+                <img
+                    src="assets/logo.png"
+                    alt="Half A Braincell Each logo"
+                >
+            </span>
+            <span id="nav-channel-name">
+                Half A Braincell Each
+            </span>
+        </a>
+
+        <button
+            class="menu-button"
+            id="menu-button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            type="button"
+        >
+            ☰
+        </button>
+
+        <ul class="nav-links" id="nav-links">
+            <li>
+                <a href="#uploads">Videos</a>
+            </li>
+            <li>
+                <a href="#announcements">News</a>
+            </li>
+            <li>
+                <a href="#about">About</a>
+            </li>
+            <li>
+                <a href="#fanart">Fanart</a>
+            </li>
+            <li id="merch-nav-item" class="hidden">
+                <a href="#merch">Merch</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+
+    <section class="channel-banner">
+        <img
+            src="assets/channel-banner.jpg"
+            alt="Channel banner"
+        >
+    </section>
+
+    <section class="hero">
+        <div class="hero-background-shape"></div>
+
+        <div class="hero-inner">
+            <div class="hero-copy">
+                <span class="sticker">
+                    OFFICIAL WEBSITE!
+                </span>
+
+                <h1 id="channel-name">
+                    Half A Braincell Each
+                </h1>
+
+                <p id="channel-tagline">
+                    Welcome to the official home
+                    of Half A Braincell Each!
+                </p>
+
+                <a
+                    id="youtube-link"
+                    class="youtube-button"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <span>▶</span>
+                    Watch on YouTube
+                </a>
+            </div>
+
+            <div class="hero-character">
+                <div class="character-circle">
+                    <img
+                        id="channel-avatar"
+                        src="assets/images/profile.jpg"
+                        alt="Half A Braincell Each profile picture"
+                    >
+                </div>
+
+                <div class="character-sparkle">
+                    ✦
+                </div>
+            </div>
+        </div>
+
+        <div class="wave-bottom"></div>
+    </section>
+
+    <section id="uploads" class="content-section">
+
+        <div class="section-heading">
+            <div class="section-icon">▶</div>
+
+            <div>
+                <h2>Latest Uploads</h2>
+                <p>
+                    Fresh videos straight from the channel!
+                </p>
+            </div>
+        </div>
+
+        <div
+            class="video-grid"
+            id="video-grid"
+        ></div>
+
+        <div
+            class="see-more-container hidden"
+            id="videos-more-container"
+        >
+            <button
+                type="button"
+                class="see-more-button"
+                id="videos-more-button"
+                aria-expanded="false"
+                aria-controls="video-grid"
+            >
+                <span class="button-text">
+                    See More Videos
+                </span>
+                <span class="button-arrow">▼</span>
+            </button>
+        </div>
+    </section>
+
+    <section
+        id="announcements"
+        class="orange-section"
+    >
+        <div class="content-section">
+
+            <div class="section-heading">
+                <div class="section-icon white-icon">
+                    !
+                </div>
+
+                <div>
+                    <h2>Announcemnts!</h2>
+                    <p>
+                        News, updates and announcements!
+                    </p>
+                </div>
+            </div>
+
+            <div
+                class="announcement-list"
+                id="announcement-list"
+            ></div>
+
+            <div
+                class="see-more-container hidden"
+                id="announcements-more-container"
+            >
+                <button
+                    type="button"
+                    class="see-more-button"
+                    id="announcements-more-button"
+                    aria-expanded="false"
+                    aria-controls="announcement-list"
+                >
+                    <span class="button-text">
+                        See More Announcements
+                    </span>
+                    <span class="button-arrow">▼</span>
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="about" class="content-section">
+
+        <div class="section-heading">
+            <div class="section-icon">★</div>
+
+            <div>
+                <h2>About the Channel</h2>
+                <p>
+                    What's this channel all about?
+                </p>
+            </div>
+        </div>
+
+        <div class="paper-card">
+            <div class="paper-corner">✦</div>
+
+            <div
+                id="about-content"
+                class="about-preview"
+            >
+                <p id="about-description"></p>
+            </div>
+
+            <div class="about-more-container">
+                <a
+                    href="about.html"
+                    class="see-more-button"
+                    id="about-more-button"
+                >
+                    <span class="button-text">
+                        See More
+                    </span>
+                    <span class="button-arrow">▼</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section
+        id="fanart"
+        class="orange-section fanart-section"
+    >
+        <div class="content-section">
+
+            <div class="section-heading">
+                <div class="section-icon white-icon">
+                    🎨
+                </div>
+
+                <div>
+                    <h2>Fanart Corner</h2>
+                    <p>
+                        Look what the community made!
+                    </p>
+                </div>
+            </div>
+
+            <div class="fanart-card">
+
+                <div class="fanart-copy">
+                    <div class="art-star">★</div>
+
+                    <h3>Got some art?</h3>
+
+                    <p>
+                        We'd love to see what you've
+                        created! Send your fanart
+                        to the creators here.
+                    </p>
+
+                    <div class="mini-doodles">
+                        ✦　♡　✧　★
+                    </div>
+                </div>
+
+                <form id="fanart-form">
+
+                    <label for="fan-name">
+                        Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="fan-name"
+                        placeholder="Your name"
+                        required
+                    >
+
+                    <label for="fan-email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="fan-email"
+                        placeholder="you@example.com"
+                        required
+                    >
+
+                    <label for="fan-art-url">
+                        Artwork link
+                    </label>
+
+                    <input
+                        type="url"
+                        id="fan-art-url"
+                        placeholder="https://..."
+                        required
+                    >
+
+                    <label for="fan-message">
+                        Message
+                    </label>
+
+                    <textarea
+                        id="fan-message"
+                        placeholder="Tell us about your artwork!"
+                    ></textarea>
+
+                    <button
+                        type="submit"
+                        class="submit-button"
+                    >
+                        ✨ Send Fanart
+                    </button>
+
+                    <p
+                        id="form-message"
+                        class="form-message"
+                    >
+                        Thanks for sending your art! 🎉
+                    </p>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section
+        id="merch"
+        class="content-section hidden"
+    >
+        <div class="section-heading">
+            <div class="section-icon">🛍</div>
+
+            <div>
+                <h2>Official Merch</h2>
+                <p>
+                    Grab some channel goodies!
+                </p>
+            </div>
+        </div>
+
+        <div
+            class="merch-grid"
+            id="merch-grid"
+        ></div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-inner">
+
+        <div class="footer-logo">
+            <span class="footer-play"></span>
+            <span id="footer-channel-name">
+                Half A Braincell Each
+            </span>
+        </div>
+
+        <p>
+            Thank you for being a part of the community ♥
+        </p>
+
+        <p>
+            © <span id="current-year"></span>
+        </p>
+
+    </div>
+</footer>
+
+<script>
+    "use strict";
+
+    const ENABLE_MERCH = false;
+
+    const INITIAL_VIDEO_COUNT = 3;
+    const INITIAL_ANNOUNCEMENT_COUNT = 2;
+
+    const CHANNEL = {
+        name: "Half A Braincell Each",
+
+        initials: "HABE",
+
+        tagline:
+            "Welcome to the official Half A Braincell Each Website! " +
+            "Videos, announcements, fanart and (hopefully) more!",
+
+        youtube:
+            "https://www.youtube.com/channel/UC45YiM8Mh0IgWJgUPh4B9gw",
+
+        description:
+            "Half A Braincell Each is a YouTube channel ran by three " +
+            "friends who have a passion for playing games, creating " +
+            "art, and stories. We all wanna bring you the best videos " +
+            "we can while still being funny, creative and enjoyable " +
+            "to watch!"
+    };
+
+    const VIDEOS = [
+        {
+            title: "WE PLAY EVERY GAME EVER (100% not clickbait trust) | ANNIVERSARY EP 2!!!",
+            date: "September 14, 2026",
+            description: "this is not clickbait we play every game EVER",
+            thumbnail: "assets/images/video21.png",
+            url: "https://youtu.be/tH9KTuaiXU8"
+        },
+        {
+            title: "THREE IDIOTS MAKE A TIMELINE | ANNIVERSARY EP 1!!!",
+            date: "September 14, 2026",
+            description: "we yap for 13 minutes",
+            thumbnail: "assets/images/video20.png",
+            url: "https://www.youtube.com/watch?v=HoiR7t19Bug"
+        },
+        {
+            title: "AHHHHHHHH! |  Nullscape Ep 1",
+            date: "August 11, 2026",
+            description: "Jake gets insanely ragebaited lolz.",
+            thumbnail: "assets/images/video19.png",
+            url: "https://www.youtube.com/watch?v=xb2hCsCu_6E&t=739s"
+        },
+
+        {
+            title: "THE CAINE ARC COMPILATION",
+            date: "July 25, 2026",
+            description: "The whole Caine Arc in one sitting.",
+            thumbnail: "assets/images/video18.jpg",
+            url: "https://www.youtube.com/watch?v=WGsDX6hM128"
+        },
+
+        {
+            title: "THERE ARE WAY TOO MANY FLOORS! | REGRETEVATOR",
+            date: "July 21, 2026",
+            description: "Sketchy becomes a pretty princess",
+            thumbnail: "assets/images/video17.jpg",
+            url: "https://www.youtube.com/watch?v=7RyDQArMNu8&t=1s"
+        },
+
+        {
+            title: "3 IDIOTS BURN DOWN A CAFE | THE HYBRID CAFE",
+            date: "July 12, 2026",
+            description: "we shouldn't work a 9/5-",
+            thumbnail: "assets/images/video16.jpg",
+            url: "https://www.youtube.com/watch?v=VZIHE1FTgcc&t=2s"
+        },
+
+        {
+            title: "IT'S ANNOUNCEMENT TIME!",
+            date: "June 29, 2026",
+            description: "hey we weren't dead",
+            thumbnail: "assets/images/video15.png",
+            url: "https://www.youtube.com/watch?v=bjsw2IJFvDc&t=6s"
+        },
+
+        {
+            title: "JAKE GOES INSANE (Theory Video)",
+            date: "April 26, 2026",
+            description: "And thats just a theory!",
+            thumbnail: "assets/images/video14.png",
+            url: "https://www.youtube.com/watch?v=kzHcu8QQghI&t=1s"
+        },
+
+        {
+            title: "WE'RE SO BACK!! | Blocktales Ep: 2!!",
+            date: "April 19, 2026",
+            description: "yo this series ain't dead :D",
+            thumbnail: "assets/images/video13.png",
+            url: "https://www.youtube.com/watch?v=7BXEgKTtg_A"
+        },
+
+        {
+            title: "seals",
+            date: "April 1, 2026",
+            description: "seals.",
+            thumbnail: "assets/images/video12.png",
+            url: "https://www.youtube.com/watch?v=13VxiM5Xfo8&t=1s"
+        },
+
+        {
+            title: "WOW ANNONCMENT!!1!",
+            date: "March 9, 2026",
+            description: "channel updated",
+            thumbnail: "assets/images/video11.png",
+            url: "https://www.youtube.com/watch?v=-Uzfe-MhZm4"
+        },
+
+        {
+            title: "3 IDIOTS GET SCARED IN MINECRAFT!!!",
+            date: "Febuary 28, 2026",
+            description: "boo.",
+            thumbnail: "assets/images/video10.png",
+            url: "https://www.youtube.com/watch?v=R790GlXdlK0&t=1s"
+        },
+
+        {
+            title: "Half A Braincell Each - Valentine (Laufey Cover)",
+            date: "Febuary 14, 2026",
+            description: "Hope you enjoy the song, it took a while to make!",
+            thumbnail: "assets/images/video9.png",
+            url: "https://www.youtube.com/watch?v=q8S4iIMwmlM"
+        },
+
+        {
+            title: "WELCOME TO SEASON 2 OF HALF A BRAINCELL EACH!!",
+            date: "January 14, 2026",
+            description: "season 2 started here or smt like that",
+            thumbnail: "assets/images/video8.png",
+            url: "https://www.youtube.com/watch?v=OJt4VO3iMus"
+        },
+
+        {
+            title: "HALF OF A BRAINCELL'S BEST OF 2025!!!",
+            date: "December 31, 2025",
+            description: "season 1 go bye bye",
+            thumbnail: "assets/images/video7.jpg",
+            url: "https://www.youtube.com/watch?v=GQUZtkn2SI8"
+        },
+
+        {
+            title: "MEREH CHRIMUS! REMINO GOT STARBUCKS- | DANDYS WORLD",
+            date: "Decemeber 17, 2025",
+            description: "christmas yay",
+            thumbnail: "assets/images/video6.jpg",
+            url: "https://www.youtube.com/watch?v=4QbxuT1_5c8&t=2616s"
+        },
+
+        {
+            title: "WE GOT BEATEN UP IN A PIZZARIA | ONE MORE NIGHT",
+            date: "December 9, 2025",
+            description: "el fredrick lil scary",
+            thumbnail: "assets/images/video5.png",
+            url: "https://www.youtube.com/watch?v=fXBcSbvw_YI&t=1015s"
+        },
+
+        {
+            title: "DRAGGING REMINO INTO THE BACKROOMS AND BECOMING BRITISH (HALLOWEEN P2)",
+            date: "November 14, 2025",
+            description: "please don't watch this",
+            thumbnail: "assets/images/video4.png",
+            url: "https://www.youtube.com/watch?v=QZHOl0K5J94&t=209s"
+        },
+
+        {
+            title: "3 IDIOTS REACT TO SOME VIDEOS! (HALLOWEEN VIDEO P1)",
+            date: "November 2, 2025",
+            description: "mwehehehe",
+            thumbnail: "assets/images/video3.png",
+            url: "https://www.youtube.com/watch?v=wrm9l4DwEtA&t=2164s"
+        },
+
+        {
+            title: "idiots robbed people  they died a lot of times | Random Mafia Shooter",
+            date: "August 21, 2025",
+            description: "remino kill cops",
+            thumbnail: "assets/images/video2.png",
+            url: "https://www.youtube.com/watch?v=SaM2pgE9WYM&t=251s"
+        },
+
+        {
+            title: "ITS BLOCKTALES TIME! Ep: 1!!",
+            date: "August 18, 2025",
+            description: "The beginning",
+            thumbnail: "assets/images/video1.png",
+            url: "https://www.youtube.com/watch?v=4aulkkYrLsw"
+        },
+
+        {
+            title: "Welcome to Half a Braincell Each! (2025)",
+            date: "August 11, 2025",
+            description: "fake beginning",
+            thumbnail: "assets/images/video0.png",
+            url: "https://www.youtube.com/watch?v=v1L754DPmCk&"
+        },
+    ];
+
+    const ANNOUNCEMENTS = [
+        {
+            date: "August 29, 2026",
+            title:
+                "Welcome to the new website!",
+            text:
+                "The official website is now live! " +
+                "More videos are coming soon."
+        }
+    ];
+
+    const MERCH = [
+    {
+        name: "Channel T-Shirt",
+        description: "An official Half A Braincell Each T-shirt.",
+        image: "assets/images/tshirt.jpg",
+        url: "#"
+    },
+    {
+        name: "Channel Hoodie",
+        description: "Stay cozy with the official channel hoodie.",
+        image: "assets/images/hoodie.jpg",
+        url: "#"
+    },
+    {
+        name: "Logo Sticker",
+        description: "A sticker featuring the channel logo.",
+        image: "assets/images/sticker.jpg",
+        url: "#"
+    }
+];
+
+    document.title = CHANNEL.name;
+
+    document.getElementById(
+        "channel-name"
+    ).textContent = CHANNEL.name;
+
+    document.getElementById(
+        "nav-channel-name"
+    ).textContent = CHANNEL.name;
+
+    document.getElementById(
+        "footer-channel-name"
+    ).textContent = CHANNEL.name;
+
+    document.getElementById(
+        "channel-tagline"
+    ).textContent = CHANNEL.tagline;
+
+    document.getElementById(
+        "channel-avatar"
+    ).textContent = CHANNEL.initials;
+
+    document.getElementById(
+        "youtube-link"
+    ).href = CHANNEL.youtube;
+
+    document.getElementById(
+        "about-description"
+    ).textContent = CHANNEL.description;
+
+    const videoGrid =
+        document.getElementById("video-grid");
+
+    const videosMoreContainer =
+        document.getElementById(
+            "videos-more-container"
+        );
+
+    const videosMoreButton =
+        document.getElementById(
+            "videos-more-button"
+        );
+
+    function renderVideos(showAll = false) {
+        videoGrid.innerHTML = "";
+
+        const visibleVideos = showAll
+            ? VIDEOS
+            : VIDEOS.slice(0, INITIAL_VIDEO_COUNT);
+
+        visibleVideos.forEach(video => {
+            const card =
+                document.createElement("a");
+
+            card.className = "video-card";
+
+            card.href = video.url;
+
+            card.target = "_blank";
+
+            card.rel =
+                "noopener noreferrer";
+
+            card.innerHTML = `
+                <div class="thumbnail">
+                    <img
+                        src="${escapeAttribute(video.thumbnail)}"
+                        alt="${escapeAttribute(video.title)} thumbnail"
+                        loading="lazy"
+                    >
+                    <span class="thumbnail-play" aria-hidden="true">▶</span>
+                </div>
+
+                <div class="video-info">
+                    <h3>
+                        ${escapeHTML(video.title)}
+                    </h3>
+
+                    <div class="video-date">
+                        ${escapeHTML(video.date)}
+                    </div>
+
+                    <p class="video-description">
+                        ${escapeHTML(video.description)}
+                    </p>
+                </div>
+            `;
+
+            videoGrid.appendChild(card);
+        });
+    }
+
+    let videosExpanded = false;
+
+    renderVideos(false);
+
+    if (
+        VIDEOS.length > INITIAL_VIDEO_COUNT
+    ) {
+        videosMoreContainer.classList.remove(
+            "hidden"
+        );
+    }
+
+    videosMoreButton.addEventListener(
+        "click",
+        () => {
+            videosExpanded = !videosExpanded;
+
+            renderVideos(videosExpanded);
+
+            videosMoreButton.classList.toggle(
+                "expanded",
+                videosExpanded
+            );
+
+            videosMoreButton.setAttribute(
+                "aria-expanded",
+                String(videosExpanded)
+            );
+
+            videosMoreButton.querySelector(
+                ".button-text"
+            ).textContent =
+                videosExpanded
+                    ? "Show Fewer Videos"
+                    : "See More Videos";
+        }
+    );
+
+    const announcementList =
+        document.getElementById(
+            "announcement-list"
+        );
+
+    const announcementsMoreContainer =
+        document.getElementById(
+            "announcements-more-container"
+        );
+
+    const announcementsMoreButton =
+        document.getElementById(
+            "announcements-more-button"
+        );
+
+    function renderAnnouncements(showAll = false) {
+        announcementList.innerHTML = "";
+
+        const visibleAnnouncements =
+            showAll
+                ? ANNOUNCEMENTS
+                : ANNOUNCEMENTS.slice(
+                    0,
+                    INITIAL_ANNOUNCEMENT_COUNT
+                );
+
+        visibleAnnouncements.forEach(
+            announcement => {
+                const article =
+                    document.createElement("article");
+
+                article.className =
+                    "announcement";
+
+                article.innerHTML = `
+                    <div class="announcement-date">
+                        ${escapeHTML(
+                            announcement.date
+                        )}
+                    </div>
+
+                    <h3>
+                        ${escapeHTML(
+                            announcement.title
+                        )}
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(
+                            announcement.text
+                        )}
+                    </p>
+                `;
+
+                announcementList.appendChild(
+                    article
+                );
+            }
+        );
+    }
+
+    let announcementsExpanded = false;
+
+    renderAnnouncements(false);
+
+    if (
+        ANNOUNCEMENTS.length >
+        INITIAL_ANNOUNCEMENT_COUNT
+    ) {
+        announcementsMoreContainer.classList.remove(
+            "hidden"
+        );
+    }
+
+    announcementsMoreButton.addEventListener(
+        "click",
+        () => {
+            announcementsExpanded =
+                !announcementsExpanded;
+
+            renderAnnouncements(
+                announcementsExpanded
+            );
+
+            announcementsMoreButton.classList.toggle(
+                "expanded",
+                announcementsExpanded
+            );
+
+            announcementsMoreButton.setAttribute(
+                "aria-expanded",
+                String(announcementsExpanded)
+            );
+
+            announcementsMoreButton.querySelector(
+                ".button-text"
+            ).textContent =
+                announcementsExpanded
+                    ? "Show Fewer Announcements"
+                    : "See More Announcements";
+        }
+    );
+
+    const merchSection =
+        document.getElementById("merch");
+
+    const merchNavItem =
+        document.getElementById(
+            "merch-nav-item"
+        );
+
+    const merchGrid =
+        document.getElementById("merch-grid");
+
+    if (ENABLE_MERCH) {
+        merchSection.classList.remove(
+            "hidden"
+        );
+
+        merchNavItem.classList.remove(
+            "hidden"
+        );
+
+        MERCH.forEach(product => {
+            const card =
+                document.createElement("article");
+
+            card.className = "merch-card";
+
+            card.innerHTML = `
+                <div class="merch-image">
+                    <img
+                        src="${escapeAttribute(product.image)}"
+                        alt="${escapeAttribute(product.name)}"
+                        loading="lazy"
+                    >
+                </div>
+
+                <div class="merch-info">
+                    <h3>
+                        ${escapeHTML(product.name)}
+                    </h3>
+
+                    <p>
+                        ${escapeHTML(
+                            product.description
+                        )}
+                    </p>
+
+                    <a
+                        class="merch-link"
+                        href="${escapeAttribute(
+                            product.url
+                        )}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        View product →
+                    </a>
+                </div>
+            `;
+
+            merchGrid.appendChild(card);
+        });
+    }
+
+    const fanartForm =
+        document.getElementById(
+            "fanart-form"
+        );
+
+    const formMessage =
+        document.getElementById(
+            "form-message"
+        );
+
+    fanartForm.addEventListener(
+        "submit",
+        event => {
+            event.preventDefault();
+
+            const name =
+                document
+                    .getElementById("fan-name")
+                    .value
+                    .trim();
+
+            const email =
+                document
+                    .getElementById("fan-email")
+                    .value
+                    .trim();
+
+            const artwork =
+                document
+                    .getElementById(
+                        "fan-art-url"
+                    )
+                    .value
+                    .trim();
+
+            const message =
+                document
+                    .getElementById(
+                        "fan-message"
+                    )
+                    .value
+                    .trim();
+
+            if (
+                !name ||
+                !email ||
+                !artwork
+            ) {
+                return;
+            }
+
+            const creatorEmail =
+                "halfabraincelleach@gmail.com";
+
+            const subject =
+                encodeURIComponent(
+                    `Fanart submission from ${name}`
+                );
+
+            const body =
+                encodeURIComponent(
+                    `Name: ${name}\n` +
+                    `Email: ${email}\n` +
+                    `Artwork: ${artwork}\n\n` +
+                    `Message:\n${message}`
+                );
+
+            window.location.href =
+                `mailto:${creatorEmail}` +
+                `?subject=${subject}` +
+                `&body=${body}`;
+
+            formMessage.style.display =
+                "block";
+        }
+    );
+
+    const menuButton =
+        document.getElementById(
+            "menu-button"
+        );
+
+    const navLinks =
+        document.getElementById(
+            "nav-links"
+        );
+
+    menuButton.addEventListener(
+        "click",
+        () => {
+            const isOpen =
+                navLinks.classList.toggle(
+                    "open"
+                );
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+        }
+    );
+
+    navLinks
+        .querySelectorAll("a")
+        .forEach(link => {
+            link.addEventListener(
+                "click",
+                () => {
+                    navLinks.classList.remove(
+                        "open"
+                    );
+
+                    menuButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+                }
+            );
+        });
+
+    document.getElementById(
+        "current-year"
+    ).textContent =
+        new Date().getFullYear();
+
+    function escapeHTML(value) {
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    function escapeAttribute(value) {
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/"/g, "&quot;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+    }
+</script>
+
+</body>
+</html>
